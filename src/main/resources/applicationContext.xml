@@ -18,7 +18,8 @@
           class="de.semart.sprigcourse.RockMusic">
     </bean>
     <bean id="musicPlayer"
-          class="de.semart.sprigcourse.MusicPlayer">
+          class="de.semart.sprigcourse.MusicPlayer"
+    scope="prototype">
         <property name="music" ref="musicRapBean"/>
         <property name="name" value="${musicPlayer.name}"/>
         <property name="volume" value="${musicPlayer.volume}"/>
