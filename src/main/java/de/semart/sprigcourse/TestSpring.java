@@ -27,6 +27,9 @@ public class TestSpring {
         System.out.println(firstMusicPlayer.getVolume());
         System.out.println(secondMusicPlayer.getVolume());
 
+        RapMusic rapMusic = context.getBean("musicRapBean", RapMusic.class);
+        System.out.println(rapMusic.getSong());
+
         context.close();
     }
 }

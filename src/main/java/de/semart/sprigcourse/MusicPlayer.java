@@ -4,6 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MusicPlayer {
+    public void beanInit(){
+        System.out.println("MusicPlayer Bean Init");
+    }
+
+    public void beanDestroy(){
+        System.out.println("MusicPlayer Bean Destroy");
+    }
 
     private Music music;
     private List<Music> musicList;

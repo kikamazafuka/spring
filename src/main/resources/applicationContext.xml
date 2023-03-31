@@ -9,16 +9,23 @@
     <context:property-placeholder location="classpath:musicPlayer.properties"/>
 
     <bean id="musicRapBean"
-          class="de.semart.sprigcourse.RapMusic">
+          class="de.semart.sprigcourse.RapMusic"
+          init-method="beanInit"
+          destroy-method="beanDestroy"
+    >
     </bean>
     <bean id="musicRockBean"
-          class="de.semart.sprigcourse.ClassicalMusic">
+          class="de.semart.sprigcourse.RockMusic">
     </bean>
     <bean id="musicClassicalBean"
-          class="de.semart.sprigcourse.RockMusic">
+          class="de.semart.sprigcourse.ClassicalMusic"
+          factory-method="getClassicalMusic"
+    >
     </bean>
     <bean id="musicPlayer"
           class="de.semart.sprigcourse.MusicPlayer"
+          init-method="beanInit"
+          destroy-method="beanDestroy"
     scope="prototype">
         <property name="music" ref="musicRapBean"/>
         <property name="name" value="${musicPlayer.name}"/>
