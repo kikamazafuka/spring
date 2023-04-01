@@ -1,5 +1,6 @@
 package de.semart.sprigcourse;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
@@ -7,15 +8,20 @@ import java.util.List;
 
 public class TestSpring {
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                "applicationContext.xml");
+        //ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+          //      "applicationContext.xml");
+
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
+                SpringConfig.class
+        );
 
 
 
         MusicPlayer musicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
-        Genre genre = Genre.ROCK;
+        System.out.println(musicPlayer.getVolume());
+//        Genre genre = Genre.ROCK;
 
-
+/*
         System.out.println(musicPlayer.playMusic(genre));
 
         Computer computer = context.getBean("computer", Computer.class);
@@ -24,7 +30,7 @@ public class TestSpring {
 
         //Music music = context.getBean("musicBean", Music.class);
        // MusicPlayer musicPlayer = new MusicPlayer(music);
-/*
+
         MusicPlayer firstMusicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
         MusicPlayer secondMusicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
         MusicPlayer musicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
