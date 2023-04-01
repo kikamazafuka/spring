@@ -1,64 +1,40 @@
 package de.semart.sprigcourse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+@Component
 public class MusicPlayer {
-    public void beanInit(){
-        System.out.println("MusicPlayer Bean Init");
+
+    private Music music1;
+    private Music music2;
+
+    @Autowired
+    public MusicPlayer(@Qualifier("rockMusic") Music music1,
+                       @Qualifier("classicalMusic") Music music2) {
+        this.music1 = music1;
+        this.music2 = music2;
     }
 
-    public void beanDestroy(){
-        System.out.println("MusicPlayer Bean Destroy");
-    }
-
-    private Music music;
-    private List<Music> musicList;
-    private String name;
-    private int volume;
-
-    public MusicPlayer() {
-    }
-
-    public MusicPlayer(Music music){
-        this.music = music;
-    }
-
-    public void setMusic(Music music) {
-        this.music = music;
-    }
-
-    public Music getMusic() {
-        return music;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getVolume() {
-        return volume;
-    }
-
-    public void setVolume(int volume) {
-        this.volume = volume;
-    }
-
-    public List<Music> getMusicList() {
-        return musicList;
-    }
-
-    public void setMusicList(List<Music> musicList) {
-        this.musicList = musicList;
-    }
-
-    public void playMusicList(){
-        for (Music music : musicList){
-            System.out.println(music.getSong());
+    public String playMusic(Genre genre){
+        Random random = new Random();
+        int number = random.nextInt(3);
+        String playingSong ="";
+        switch (genre){
+            case ROCK:
+                playingSong = "Playing "+music1.getSong().get(number);
+                break;
+            case CLASSICAL:
+                playingSong = "Playing "+music2.getSong().get(number);
+                break;
         }
+
+        return playingSong;
     }
+
 }

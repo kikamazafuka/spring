@@ -1,17 +1,33 @@
 package de.semart.sprigcourse;
 
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+@Component
 public class ClassicalMusic implements Music{
+    private List<String> songList;
 
-    private ClassicalMusic(){
-
+    public ClassicalMusic() {
+        List<String> classicalSongList = new ArrayList<>();
+        classicalSongList.add("a");
+        classicalSongList.add("b");
+        classicalSongList.add("c");
+        this.songList = classicalSongList;
     }
 
-    public static ClassicalMusic getClassicalMusic(){
-        return new ClassicalMusic();
+    public List<String> getSongList() {
+        return songList;
+    }
+
+    public void setSongList() {
+
     }
 
     @Override
-    public String getSong(){
-        return "Hungarian Rhapsody";
+    public List<String> getSong(){
+        return songList;
     }
 }

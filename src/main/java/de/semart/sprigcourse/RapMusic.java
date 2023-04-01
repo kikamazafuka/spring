@@ -1,5 +1,11 @@
 package de.semart.sprigcourse;
 
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class RapMusic implements Music{
 
     public void beanInit(){
@@ -10,7 +16,7 @@ public class RapMusic implements Music{
         System.out.println("Bean Destroy");
     }
     @Override
-    public String getSong(){
-        return "Kasta";
+    public List<String> getSong(){
+        return new ArrayList<>();
     }
 }
