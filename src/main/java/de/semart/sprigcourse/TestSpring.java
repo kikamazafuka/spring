@@ -17,6 +17,7 @@ public class TestSpring {
 
 
 
+
         MusicPlayer musicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
         System.out.println(musicPlayer.getVolume());
 //        Genre genre = Genre.ROCK;
