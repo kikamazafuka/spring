@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,6 +8,15 @@
 <form th:method="POST" th:action="@{/people}" th:object="${person}">
     <label for="name">Enter Name</label>
     <input type="text" th:field="*{name}" id="name"/>
+    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Errors</div>
+    <br/>
+    <label for="age">Enter Age</label>
+    <input type="text" th:field="*{age}" id="age"/>
+    <div style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Errors</div>
+    <br/>
+    <label for="email">Enter Email</label>
+    <input type="text" th:field="*{email}" id="email"/>
+    <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Errors</div>
     <br/>
     <input type="submit" value="Create">
 </form>
