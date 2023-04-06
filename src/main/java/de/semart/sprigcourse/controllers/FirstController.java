@@ -35,8 +35,8 @@ public class FirstController {
                             @RequestParam(value = "b", required = false) int b,
                             @RequestParam(value = "action", required = false) String action,
                             Model model){
-        
-        int result = 0;
+
+        double result = 0;
         switch (action){
             case "multiplication":
                  result = a*b;
@@ -48,7 +48,7 @@ public class FirstController {
                 result = a-b;
                 break;
             case "division":
-                result = a/b;
+                result = a/(double)b;
                 break;
         }
         model.addAttribute("input", "Input parameters: a="+a +", "+ "b="+b+", action: "+action);
