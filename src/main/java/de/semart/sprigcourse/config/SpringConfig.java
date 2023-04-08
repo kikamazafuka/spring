@@ -23,7 +23,7 @@ import java.util.Objects;
 @ComponentScan("de.semart.sprigcourse")
 @EnableWebMvc
 @PropertySource("classpath:application.properties")
-@PropertySource("clsspath:database.properties")
+@PropertySource("classpath:database.properties")
 public class SpringConfig implements WebMvcConfigurer {
     private final ApplicationContext applicationContext;
     private final Environment environment;
@@ -66,7 +66,12 @@ public class SpringConfig implements WebMvcConfigurer {
         dataSource.setDriverClassName(Objects.requireNonNull(environment.getProperty("driver")));
         dataSource.setUrl(environment.getProperty("url"));
         dataSource.setUsername(environment.getProperty("username"));
-        dataSource.setPassword(environment.getProperty("password"));
+//        dataSource.setPassword(environment.getProperty("password"));
+
+ //       dataSource.setDriverClassName("org.postgresql.Driver");
+//        dataSource.setUrl("jdbc:postgresql://localhost:5432/first_db");
+ //       dataSource.setUsername("postgres");
+        dataSource.setPassword("postgres");
         return dataSource;
     }
 
