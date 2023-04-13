@@ -23,18 +23,18 @@ public class Person {
     public Person() {
     }
 
-    public Person(int id, String name, int age, String email, String address) {
-        this.id = id;
+    public Person( String name, int age, String email, String address) {
+        //this.person_id = id;
         this.name = name;
         this.age = age;
         this.email = email;
         this.address = address;
     }
 
-    public Person(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+//    public Person(int id, String name) {
+//        this.person_id = id;
+//        this.name = name;
+//    }
 
     public int getId() {
         return id;
