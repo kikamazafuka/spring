@@ -44,6 +44,13 @@ public class PersonDAO {
                 .stream().findAny().orElse(null);
     }
 
+//******  Method to show person join book    ******  /////
+
+//    public Person show(int id){
+//        return jdbcTemplate.query("select person.id, person.name, person.age, book.name, book.author, book.year from person left join book on person.id = book.person_id WHERE person.id=?", new BeanPropertyRowMapper<>(Person.class), id)
+//                .stream().findAny().orElse(null);
+//    }
+
     public void save(Person person){
 
         jdbcTemplate.update("INSERT INTO Person (name, age, email, address) VALUES (?, ?, ?, ?)", person.getName(),

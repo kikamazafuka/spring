@@ -1,10 +1,15 @@
 package de.semart.sprigcourse.controllers;
 
 import de.semart.sprigcourse.dao.BookDAO;
+import de.semart.sprigcourse.dao.PersonDAO;
 import de.semart.sprigcourse.models.Book;
+import de.semart.sprigcourse.models.Person;
+import de.semart.sprigcourse.util.BookValidator;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -12,10 +17,14 @@ import org.springframework.web.bind.annotation.*;
 public class BooksController {
 
     private final BookDAO bookDAO;
+    private final BookValidator bookValidator;
+    private  final PersonDAO personDAO;
 
     @Autowired
-    public BooksController(BookDAO bookDAO) {
+    public BooksController(BookDAO bookDAO, BookValidator bookValidator, PersonDAO personDAO) {
         this.bookDAO = bookDAO;
+        this.bookValidator = bookValidator;
+        this.personDAO = personDAO;
     }
 
 
@@ -27,8 +36,10 @@ public class BooksController {
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model){
+    public String show(@PathVariable("id") int id, Model model,
+                       @ModelAttribute ("person") Person person){
         model.addAttribute("book", bookDAO.show(id));
+        model.addAttribute("people", personDAO.index());
         return "books/show";
     }
 
@@ -39,8 +50,47 @@ public class BooksController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute("book") Book book){
+    public String create(@ModelAttribute("book") @Valid Book book,
+                         BindingResult bindingResult){
+        bookValidator.validate(book, bindingResult);
+        if (bindingResult.hasErrors()){
+            return "books/new";
+        }
+
         bookDAO.save(book);
+        System.out.println("Book controller create");
+        return "redirect:/books";
+    }
+
+
+
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") int id){
+        model.addAttribute("book", bookDAO.show(id));
+        return "books/edit";
+    }
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult,
+                         @PathVariable("id") int id){
+        bookValidator.validate(book, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "books/edit";
+        }
+        bookDAO.update(id, book);
+        return "redirect:/books";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id){
+        bookDAO.delete(id);
+        return "redirect:/books";
+    }
+
+    // ****  Set person to book ****** ///
+    @PatchMapping("/add")
+    public String setPerson(@ModelAttribute("person") Person person){
+       // bookDAO.setPersonId(1, person);
+        System.out.println("add person to book");
         return "redirect:/books";
     }
 }

@@ -1,6 +1,7 @@
 package de.semart.sprigcourse.dao;
 
 import de.semart.sprigcourse.models.Book;
+import de.semart.sprigcourse.models.Person;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -33,11 +34,17 @@ public class BookDAO {
     }
 
     public void update(int id, Book updatedBook){
-        //TODO
+        jdbcTemplate.update("UPDATE Book SET name=?, author=?, year=? WHERE id=?", updatedBook.getName(),
+                updatedBook.getAuthor(), updatedBook.getYear(), id);
     }
 
     public void delete(int id){
         //TODO
+        jdbcTemplate.update("DELETE FROM book WHERE id=?", id);
+    }
+
+    public void setPersonId(int id, Person person){
+        jdbcTemplate.update("update book SET person_id=? where id=?", person.getId(), id );
     }
 
 }
