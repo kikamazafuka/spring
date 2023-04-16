@@ -22,13 +22,15 @@
         <option th:each="person : ${people}" th:value="${person.getId()}" th:text="${person.getName()}"></option>
     </select>
 
-    <input type="submit" value="Set administrator"/>
+    <input type="submit" value="Assign person"/>
 
 </form>
 
-<p th:text="${'Assigned person: ' + book.getPersonId()}">Value</p>
+<p th:text="${'Assigned to person: ' + bookOwner.getName() + ', ' + bookOwner.getAge}">Value</p>
 
 <br/>
 <a th:href="@{/books}">Home</a>
+
+
 </body>
 </html>

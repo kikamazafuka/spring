@@ -19,5 +19,16 @@
 
 <br/>
 <a th:href="@{/people}">Home</a>
+
+<br/>
+Books:
+
+<br/>
+<div th:each="book:${books}">
+    <p th:text="${'Name: ' + book.getName() + ', ' + book.getAuthor  + ', ' + book.getYear}">Value</p>
+</div>
+
+//TODO show no books assigned to person
+<span th:if="${books.getSize() == 0}">No books</span>
 </body>
 </html>

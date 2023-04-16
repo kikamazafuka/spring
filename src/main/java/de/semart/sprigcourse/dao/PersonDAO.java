@@ -1,5 +1,6 @@
 package de.semart.sprigcourse.dao;
 
+import de.semart.sprigcourse.models.Book;
 import de.semart.sprigcourse.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -59,12 +60,22 @@ public class PersonDAO {
     }
 
     public void update(int id, Person updatedPerson){
-        jdbcTemplate.update("UPDATE Person SET name=?, age=?, email=?, adress=? WHERE id=?", updatedPerson.getName(),
+        jdbcTemplate.update("UPDATE Person SET name=?, age=?, email=?, address=? WHERE id=?", updatedPerson.getName(),
                 updatedPerson.getAge(), updatedPerson.getEmail(), updatedPerson.getAddress(), id);
     }
 
     public void delete (int id){
         jdbcTemplate.update("DELETE FROM Person WHERE id=?", id);
+    }
+
+    public List<Book> getBooksByPersonId(int id) {
+        return jdbcTemplate.query("SELECT * FROM book WHERE person_id=?",
+                new BeanPropertyRowMapper<>(Book.class), id);
+    }
+
+    public Optional<Person> getBookOwner(int id) {
+        return jdbcTemplate.query("SELECT person.name, person.age FROM book join person on book.person_id=person.id where book.id=?",
+                new BeanPropertyRowMapper<>(Person.class), id).stream().findAny();
     }
 
 //    public void testBatchUpdate() {

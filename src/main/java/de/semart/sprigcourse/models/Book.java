@@ -1,12 +1,15 @@
 package de.semart.sprigcourse.models;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 public class Book {
     private int id;
-    private int personId;
+
+//    @Column(name = "person_id")
+//    private int personId;
 
     @NotEmpty(message = "Name should not be empty")
     @Size(min=2, max=30, message = "Name should be between 2 and 30 characters")
@@ -23,11 +26,12 @@ public class Book {
 
     public Book(){}
 
-    public Book(int personId, String name, String author, int year) {
+    public Book(int id, String name, String author, int year) {
+        this.id=id;
         this.name = name;
         this.author = author;
         this.year = year;
-        this.personId=personId;
+//        this.personId=personId;
     }
 
     public int getId() {
@@ -38,13 +42,14 @@ public class Book {
         this.id = id;
     }
 
-    public int getPersonId() {
-        return personId;
-    }
 
-    public void setPersonId(int personId) {
-        this.personId = personId;
-    }
+//    public int getPersonId() {
+//        return personId;
+//    }
+//
+//    public void setPersonId(int personId) {
+//        this.personId = personId;
+//    }
 
     public String getName() {
         return name;

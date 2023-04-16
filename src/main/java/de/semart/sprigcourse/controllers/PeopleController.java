@@ -34,6 +34,8 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model){
         model.addAttribute("person", personDAO.show(id));
+//        model.addAttribute("people", personDAO.index());
+        model.addAttribute("books", personDAO.getBooksByPersonId(id));
 
         return "people/show";
     }
@@ -47,7 +49,7 @@ public class PeopleController {
 //            return "people/new";
 //        }
 
-        return "people/new";
+        return "people/index";
     }
 
     @PostMapping()

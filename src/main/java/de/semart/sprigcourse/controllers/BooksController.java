@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/books")
 public class BooksController {
@@ -38,8 +40,14 @@ public class BooksController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model,
                        @ModelAttribute ("person") Person person){
+        Optional<Person> bookOwner = personDAO.getBookOwner(id);
+        if (bookOwner.isPresent()){
+            model.addAttribute("bookOwner", bookOwner.get());
+        } else {
+            model.addAttribute("people", personDAO.index());
+        }
         model.addAttribute("book", bookDAO.show(id));
-        model.addAttribute("people", personDAO.index());
+
         return "books/show";
     }
 
@@ -90,6 +98,8 @@ public class BooksController {
     @PatchMapping("/add")
     public String setPerson(@ModelAttribute("person") Person person){
        // bookDAO.setPersonId(1, person);
+        //TODO
+
         System.out.println("add person to book");
         return "redirect:/books";
     }
