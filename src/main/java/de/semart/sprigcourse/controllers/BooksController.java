@@ -95,12 +95,21 @@ public class BooksController {
     }
 
     // ****  Set person to book ****** ///
-    @PatchMapping("/add")
-    public String setPerson(@ModelAttribute("person") Person person){
-       // bookDAO.setPersonId(1, person);
-        //TODO
+    @PatchMapping("/{id}/assign")
+    public String assignPerson(@PathVariable("id") int id, @ModelAttribute("person") Person person){
+        bookDAO.assignBookToPerson(id, person);
+
 
         System.out.println("add person to book");
-        return "redirect:/books";
+        return "redirect:/books/"+id;
+    }
+
+    @PatchMapping("/{id}/release")
+    public String releaseBook(@PathVariable("id") int id){
+        bookDAO.releaseBook(id);
+
+
+        System.out.println("add person to book");
+        return "redirect:/books/"+id;
     }
 }

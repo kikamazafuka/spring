@@ -78,6 +78,11 @@ public class PersonDAO {
                 new BeanPropertyRowMapper<>(Person.class), id).stream().findAny();
     }
 
+    public Optional<Person> getPersonByFullName(String name) {
+       return jdbcTemplate.query("SELECT * FROM Person WHERE name=?",
+               new BeanPropertyRowMapper<>(Person.class), name).stream().findAny();
+    }
+
 //    public void testBatchUpdate() {
 //        List<Person> people = create1000People();
 //        long before =System.currentTimeMillis();

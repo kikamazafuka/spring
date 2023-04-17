@@ -49,7 +49,7 @@ public class PeopleController {
 //            return "people/new";
 //        }
 
-        return "people/index";
+        return "people/new";
     }
 
     @PostMapping()

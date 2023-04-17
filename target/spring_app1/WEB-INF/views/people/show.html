@@ -12,23 +12,29 @@
 <p th:text="${'Email: ' + person.getEmail()}">Value</p>
 <p th:text="${'Address: ' + person.getAddress()}">Value</p>
 
-<a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit</a>
+
 <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
     <input type="submit" value="Delete"/>
 </form>
-
+<br/>
+<a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit</a>
 <br/>
 <a th:href="@{/people}">Home</a>
 
 <br/>
+<hr/>
 Books:
 
 <br/>
+<div th:if="${books}">
 <div th:each="book:${books}">
-    <p th:text="${'Name: ' + book.getName() + ', ' + book.getAuthor  + ', ' + book.getYear}">Value</p>
+    <a th:href="@{/books/{id}(id=${book.getId()})}"
+    th:text="${'Name: ' + book.getName() + ', ' + book.getAuthor  + ', ' + book.getYear}">Value</a>
+</div>
 </div>
 
-//TODO show no books assigned to person
-<span th:if="${books.getSize() == 0}">No books</span>
+<div th:if="${books.isEmpty}">
+<p>No books assigned to person</p>
+</div>
 </body>
 </html>
