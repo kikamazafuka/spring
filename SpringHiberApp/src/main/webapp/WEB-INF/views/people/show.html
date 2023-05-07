@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show</title>
+</head>
+<body>
+<p th:text="${'Person: ' + person.getName() + ', ' + person.getAge()}">VALUE</p>
+ <p th:text="${'Email: ' + person.getEmail()}">VALUE</p>
+
+<a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit</a>
+<br/>
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+    <input type="submit" value="Delete"/>
+</form>
+
+<hr/>
+Books:
+
+<br/>
+<div th:if="${books}">
+    <div th:each="book:${books}">
+        <div style="color: red" th:if="${book.isOutOfTime()}">
+            <a th:href="@{/books/{id}(id=${book.getId()})}"
+                th:text="${'Name: ' + book.getName() + ', ' + book.getAuthor  + ', ' + book.getYear}">Value</a>
+        </div>
+        <div th:if="${!book.isOutOfTime()}">
+            <a th:href="@{/books/{id}(id=${book.getId()})}"
+                th:text="${'Name: ' + book.getName() + ', ' + book.getAuthor  + ', ' + book.getYear}">Value</a>
+        </div>
+    </div>
+</div>
+
+<div th:if="${books.isEmpty}">
+    <p>No books assigned to person</p>
+</div>
+<br/>
+<a th:href="@{/people}">To person list</a>
+<br/>
+<a th:href="@{/}">Home</a>
+
+<br/>
+
+Books out of time:
+
+<br/>
+<div th:if="${books}">
+    <div th:each="book:${books}">
+        <div style="color: red" th:if="${book.isOutOfTime()}">
+            <p th:text="${'Name: ' + book.getName() + ', ' + book.getAuthor  + ', ' + book.getYear}">Value</p>
+        </div>
+        <div th:if="${!book.isOutOfTime()}">
+            <p th:text="${'Name: ' + book.getName() + ', ' + book.getAuthor  + ', ' + book.getYear}">Value</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
