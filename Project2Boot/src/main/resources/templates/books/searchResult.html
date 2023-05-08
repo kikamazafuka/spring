@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>search result</title>
+</head>
+<body>
+<div th:if="${check}">
+    Books not found
+</div>
+<div th:each="book:${foundBooks}">
+    <a th:href="@{/books/{id}(id=${book.getId()})}"
+       th:text="${'Name: ' + book.getName() + ', ' + book.getAuthor  + ', ' + book.getYear}">Value</a>
+</div>
+
+<br/>
+<a href="/SpringHiberApp_war_exploded/books/search">Search</a>
+<br/>
+<a th:href="@{/books}">To books list</a>
+<br/>
+<a th:href="@{/}">Home</a>
+</body>
+</html>

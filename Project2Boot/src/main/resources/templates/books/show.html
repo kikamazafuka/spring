@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book</title>
+</head>
+<body>
+<p th:text="${'Book : ' + book.getId() + ', ' + book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">Book ID</p>
+<form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
+    <input type="submit" value="Delete"/>
+</form>
+<br/>
+<a th:href="@{/books/{id}/edit(id=${book.getId()})}">Edit</a>
+<br/>
+
+<div th:if="${people}">
+    <form th:method="PATCH" th:action="@{/books/{id}/assign(id=${book.getId()})}">
+        <label for="person">Set reader for this book:</label>
+        <select th:object="${person}" th:field="*{id}" id="person">
+            <option th:each="person : ${people}" th:value="${person.getId()}" th:text="${person.getName()}"></option>
+        </select>
+
+        <input type="submit" value="Assign person"/>
+    </form>
+</div>
+
+<br/>
+
+<div th:if="${bookOwner}">
+    <a th:href="@{/people/{id}(id=${bookOwner.getId()})}"
+       th:text="${'Assigned to person: ' + bookOwner.getName() + ', ' + bookOwner.getAge}">Value</a>
+    <form th:method="PATCH" th:action="@{/books/{id}/release(id=${book.getId()})}">
+        <label for="person">Release this book?</label>
+
+        <input type="submit" value="Release"/>
+    </form>
+</div>
+
+<br/>
+<a th:href="@{/books}">To books list</a>
+<br/>
+<a th:href="@{/}">Home</a>
+
+</body>
+</html>
