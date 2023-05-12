@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        integrity="sha384-UkZN6qH2CUerJGvJrNH+9dV7CjWvKiN3tbG7NS5HaUW8rhKOTIvP3t2HPNl+5P2C"
+        crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+  <h1 class="mb-3">Book</h1>
+  <p class="fw-bold mb-1" th:text="${'Book : ' + book.getId() + ', ' + book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">Book ID</p>
+  <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
+    <button class="btn btn-danger">Delete</button>
+  </form>
+  <a th:href="@{/books/{id}/edit(id=${book.getId()})}" class="btn btn-primary mb-3">Edit</a>
+  <div th:if="${people}">
+    <form th:method="PATCH" th:action="@{/books/{id}/assign(id=${book.getId()})}">
+      <label for="person" class="form-label">Set reader for this book:</label>
+      <select th:object="${person}" th:field="*{id}" id="person" class="form-select">
+        <option th:each="person : ${people}" th:value="${person.getId()}" th:text="${person.getName()}"></option>
+      </select>
+      <button class="btn btn-success mt-3">Assign person</button>
+    </form>
+  </div>
+  <div th:if="${bookOwner}">
+    <a th:href="@{/people/{id}(id=${bookOwner.getId()})}"
+       class="btn btn-secondary mb-1"
+       th:text="${'Assigned to person: ' + bookOwner.getName() + ', ' + bookOwner.getAge}"></a>
+    <form th:method="PATCH" th:action="@{/books/{id}/release(id=${book.getId()})}">
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="releaseCheck" name="releaseCheck">
+        <label class="form-check-label" for="releaseCheck">Release this book?</label>
+      </div>
+      <button class="btn btn-warning">Release</button>
+    </form>
+  </div>
+  <a th:href="@{/books}" class="btn btn-info mb-3">To books list</a>
+  <a th:href="@{}/" class="btn btn-secondary">Home</a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-RrkZq2nUkLmXw2UrYBPC5L21MdyM57Ztg5FZtfJwkw6Q7+usF3HxqjjYGQdJ8TUL"
+        crossorigin="anonymous"></script>
+</body>
+</html>
