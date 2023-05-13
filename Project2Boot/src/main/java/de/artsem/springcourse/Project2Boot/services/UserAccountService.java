@@ -2,11 +2,9 @@ package de.artsem.springcourse.Project2Boot.services;
 
 import de.artsem.springcourse.Project2Boot.models.UserAccount;
 import de.artsem.springcourse.Project2Boot.repositories.UserAccountRepository;
-import de.artsem.springcourse.Project2Boot.security.UserAccountDetails;
-import jakarta.persistence.SecondaryTable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,10 +15,12 @@ import java.util.Optional;
 public class UserAccountService {
 
     private final UserAccountRepository userAccountRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserAccountService(UserAccountRepository userAccountRepository) {
+    public UserAccountService(UserAccountRepository userAccountRepository, PasswordEncoder passwordEncoder) {
         this.userAccountRepository = userAccountRepository;
+        this.passwordEncoder = passwordEncoder;
     }
     public Optional<UserAccount> loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<UserAccount> foundUserAccount= userAccountRepository.findByUserAccountName(username);
@@ -30,7 +30,9 @@ public class UserAccountService {
         return foundUserAccount;
     }
     @Transactional
-    public void save(UserAccount userAccount){
+    public void registrate(UserAccount userAccount){
+        userAccount.setPassword(passwordEncoder.encode(userAccount.getPassword()));
+
         userAccountRepository.save(userAccount);
     }
 }
