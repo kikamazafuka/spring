@@ -26,7 +26,7 @@ public class UserAccountDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.userAccount.getUserName();
+        return this.userAccount.getUserAccountName();
     }
 
     @Override

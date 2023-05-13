@@ -36,7 +36,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/auth/login", "/error").permitAll()
+                        .requestMatchers("/auth/login", "/error", "/auth/registration").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults())
@@ -46,7 +46,10 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/", true)
                 .failureUrl("/auth/login?error")
                 .permitAll();
-        http.logout().permitAll();
+        http
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/auth/login");
 
         return http.build();
     }

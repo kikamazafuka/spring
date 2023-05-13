@@ -34,12 +34,13 @@ public class UserAccount {
         this.id = id;
     }
 
-    public String getUserName() {
+
+    public String getUserAccountName() {
         return userAccountName;
     }
 
-    public void setUserName(String userName) {
-        this.userAccountName = userName;
+    public void setUserAccountName(String userAccountName) {
+        this.userAccountName = userAccountName;
     }
 
     public String getPassword() {
@@ -54,7 +55,7 @@ public class UserAccount {
     public String toString() {
         return "UserAccount{" +
                 "id=" + id +
-                ", userName='" + userAccountName + '\'' +
+                ", userAccountName='" + userAccountName + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
