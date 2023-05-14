@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -40,9 +41,17 @@ public class Person {
 //    @DateTimeFormat(pattern = "dd/MM/yyyy")
 //    private Date dateOfBirth;
 //
-//    @Column(name = "created_at")
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date createdAt;
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime  createdAt;
+
+    @Column(name = "updated_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime updatedAt;
+
+    @Column(name = "created_who")
+    @NotEmpty
+    private String createdWho;
 
 //    @Enumerated(EnumType.STRING)
 //    private Mood mood;
@@ -111,14 +120,31 @@ public class Person {
 //        this.dateOfBirth = dateOfBirth;
 //    }
 //
-//    public Date getCreatedAt() {
-//        return createdAt;
-//    }
-//
-//    public void setCreatedAt(Date createdAt) {
-//        this.createdAt = createdAt;
-//    }
-//
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getCreatedWho() {
+        return createdWho;
+    }
+
+    public void setCreatedWho(String createdWho) {
+        this.createdWho = createdWho;
+    }
+
+    //
 //    public Mood getMood() {
 //        return mood;
 //    }
