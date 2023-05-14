@@ -21,4 +21,9 @@ public class MainController {
         System.out.println(userAccountDetails.getUserAccount());
         return "index";
     }
+
+    @GetMapping("admin")
+    public String adminPage(){
+        return "admin";
+    }
 }

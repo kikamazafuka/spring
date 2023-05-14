@@ -36,10 +36,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
                 .authorizeHttpRequests((authz) -> authz
+                        .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/auth/login", "/error", "/auth/registration").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().hasAnyRole("USER", "ADMIN")
+//                        .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults())
                 .formLogin().loginPage("/auth/login")

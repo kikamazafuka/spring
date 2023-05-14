@@ -32,7 +32,7 @@ public class UserAccountService {
     @Transactional
     public void registrate(UserAccount userAccount){
         userAccount.setPassword(passwordEncoder.encode(userAccount.getPassword()));
-
+        userAccount.setRole("ROLE_USER");
         userAccountRepository.save(userAccount);
     }
 }
