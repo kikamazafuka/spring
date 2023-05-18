@@ -84,4 +84,5 @@ public class SensorController {
     private Sensor convertToSensor(SensorDTO sensorDTO){
         return modelMapper.map(sensorDTO, Sensor.class);
     }
+
 }
