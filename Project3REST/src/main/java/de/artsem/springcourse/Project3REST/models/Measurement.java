@@ -16,22 +16,22 @@ public class Measurement {
     private int id;
 
     @Column(name = "value")
-    @NotEmpty(message = "Value should not be empty")
-    @Size(min = -100, max = 100, message = "Value should be between -100 and 100 characters")
+//    @NotEmpty(message = "Value should not be empty")
+//    @Size(min = -100, max = 100, message = "Value should be between -100 and 100 characters")
     private double value;
 
     @Column(name = "raining")
-    @NotEmpty(message = "Raining value should not be empty")
+//    @NotEmpty(message = "Raining value should not be empty")
     private boolean raining;
 
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
 
-    @NotEmpty(message = "Sensor value should not be empty")
+//    @NotEmpty(message = "Sensor value should not be empty")
     @ManyToOne
     @JoinColumn(name="sensor_id",referencedColumnName = "id")
-    private Sensor sensor;
+    private Sensor measurementSensor;
 
     public Measurement() {
     }
@@ -68,11 +68,11 @@ public class Measurement {
         this.createdAt = createdAt;
     }
 
-    public Sensor getSensor() {
-        return sensor;
+    public Sensor getMeasurementSensor() {
+        return measurementSensor;
     }
 
-    public void setSensor(Sensor sensor) {
-        this.sensor = sensor;
+    public void setMeasurementSensor(Sensor measurementSensor) {
+        this.measurementSensor = measurementSensor;
     }
 }

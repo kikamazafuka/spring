@@ -20,7 +20,7 @@ public class Sensor {
     @Column(name = "name")
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "measurementSensor")
     private List<Measurement> measurements;
 
     public Sensor() {
