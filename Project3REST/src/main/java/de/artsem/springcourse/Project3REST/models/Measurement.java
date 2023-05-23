@@ -1,5 +1,6 @@
 package de.artsem.springcourse.Project3REST.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -31,7 +32,8 @@ public class Measurement {
 //    @NotEmpty(message = "Sensor value should not be empty")
     @ManyToOne
     @JoinColumn(name="sensor_id",referencedColumnName = "id")
-    private Sensor measurementSensor;
+    @JsonBackReference
+    private Sensor sensor;
 
     public Measurement() {
     }
@@ -68,11 +70,20 @@ public class Measurement {
         this.createdAt = createdAt;
     }
 
-    public Sensor getMeasurementSensor() {
-        return measurementSensor;
+//    public Sensor getMeasurementSensor() {
+//        return measurementSensor;
+//    }
+//
+//    public void setMeasurementSensor(Sensor measurementSensor) {
+//        this.measurementSensor = measurementSensor;
+//    }
+
+
+    public Sensor getSensor() {
+        return sensor;
     }
 
-    public void setMeasurementSensor(Sensor measurementSensor) {
-        this.measurementSensor = measurementSensor;
+    public void setSensor(Sensor sensor) {
+        this.sensor = sensor;
     }
 }

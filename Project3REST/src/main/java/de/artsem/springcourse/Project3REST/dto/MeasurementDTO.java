@@ -1,5 +1,6 @@
 package de.artsem.springcourse.Project3REST.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import de.artsem.springcourse.Project3REST.models.Sensor;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
@@ -19,9 +20,15 @@ public class MeasurementDTO {
     private boolean raining;
 
 //    @NotEmpty(message = "Sensor value should not be empty")
+//    @ManyToOne
+//    @JoinColumn(name="sensor_id",referencedColumnName = "id")
+//    @JsonBackReference
+//    private Sensor sensor;
+
     @ManyToOne
     @JoinColumn(name="sensor_id",referencedColumnName = "id")
-    private Sensor sensor;
+    @JsonBackReference
+    private SensorDTO sensor;
 
     public double getValue() {
         return value;
@@ -39,11 +46,20 @@ public class MeasurementDTO {
         this.raining = raining;
     }
 
-    public Sensor getSensor() {
+//    public Sensor getSensor() {
+//        return sensor;
+//    }
+//
+//    public void setSensor(Sensor sensor) {
+//        this.sensor = sensor;
+//    }
+
+
+    public SensorDTO getSensorDTO() {
         return sensor;
     }
 
-    public void setSensor(Sensor sensor) {
+    public void setSensorDTO(SensorDTO sensor) {
         this.sensor = sensor;
     }
 }

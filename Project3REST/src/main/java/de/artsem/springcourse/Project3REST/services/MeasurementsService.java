@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,7 +28,13 @@ public class MeasurementsService {
     @Transactional
     public void save(Measurement measurement){
 
+        measurement.setCreatedAt(LocalDateTime.now());
         measurementsRepository.save(measurement);
+    }
+
+    public List<Measurement> getAllMeasurements(){
+        List<Measurement> allMeasurements =measurementsRepository.findAll();
+        return allMeasurements;
     }
 
     @Transactional
@@ -36,10 +43,22 @@ public class MeasurementsService {
         if (measurementOptional.isPresent()){
 //            boolean outOfTime = false;
             Measurement measurement = measurementOptional.get();
-//            book.setAssignedAt(LocalDateTime.now());
+//            measurement.setCreatedAt(LocalDateTime.now());
 
-            measurement.setMeasurementSensor(assignedSensor);
+            measurement.setSensor(assignedSensor);
             measurementsRepository.save(measurement);
         }
+    }
+
+    public int getAllRainyDays(boolean raining) {
+        List<Measurement> rainyDays = measurementsRepository.findAllByRaining(raining);
+
+        int count = 0;
+        for (Measurement rain : rainyDays){
+            if (rain.isRaining()){
+                count++;
+            }
+        }
+        return count;
     }
 }

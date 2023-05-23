@@ -53,6 +53,7 @@ public class SensorController {
             sensorValidator.validate(sensorDTO,bindingResult);
             sensorsService.save(convertToSensor(sensorDTO));
             return ResponseEntity.ok(HttpStatus.OK);
+            //TODO should not create 2 entities
         }
         catch (SensorNotCreatedException sensorNotCreatedException) {
             throw new SensorNotCreatedException(errorMsg.toString());

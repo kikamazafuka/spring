@@ -1,5 +1,6 @@
 package de.artsem.springcourse.Project3REST.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -20,7 +21,8 @@ public class Sensor {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "measurementSensor")
+    @OneToMany(mappedBy = "sensor")
+    @JsonManagedReference
     private List<Measurement> measurements;
 
     public Sensor() {
